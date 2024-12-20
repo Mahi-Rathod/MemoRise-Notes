@@ -1,7 +1,7 @@
 import React from 'react'
 import { useForm } from 'react-hook-form';
 import { v4 as uuid } from 'uuid';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addNote } from '../../redux/slices/notesSlice.js';
 
 function AddNote({ isAddNoteVisible, handleAddNoteVisibility }) {
@@ -14,8 +14,10 @@ function AddNote({ isAddNoteVisible, handleAddNoteVisibility }) {
     });
 
     const onSubmit = (data) => {
-        data.category = data.important ? 'important' : 'general';
         data.id = uuid();
+        data.category = data.important ? 'important' : 'general';
+        data.noteState= 'active';
+        
         delete data.important;
         const now = new Date();
         data.dateTime = now.toLocaleString();
