@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import NoteCard from '../../components/noteCard/NoteCard.jsx';
-import EmptyPage from "../../components/emptyPage/EmptyPage.jsx";
+import EmptyPage from "../../components/emptyPage/EmptyPage.jsx"
 
 const ArchivedNotes = () => {
   const archivedNotes = useSelector(state => state.notes.notes).filter(({ noteState }) => noteState === 'in-archive');
