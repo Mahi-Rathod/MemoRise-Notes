@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import AddNote from '../../components/addNote/AddNote.jsx';
 import NoteCard from '../../components/noteCard/NoteCard.jsx';
 import GroupButton from '../../components/groupButton/GroupButton.jsx';
-import EmptyPage from '../../components/emptyPage/EmptyPage.jsx';
+import EmptyPage from "../../components/emptyPage/EmptyPage.jsx"
 
 import { useSelector } from 'react-redux';
 

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import GroupButton from '../../components/groupButton/GroupButton';
 import WarningBox from '../../components/warningBox/WarningBox';
 import { clearBin } from '../../redux/slices/notesSlice.js';
-import EmptyPage from '../../components/emptyPage/EmptyPage.jsx';
+import EmptyPage from "../../components/emptyPage/EmptyPage.jsx"
 
 function Bin() {
   const trashedNotes = useSelector(state => state.notes.notes).filter(({ noteState }) => noteState === 'in-bin');

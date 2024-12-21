@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
 import NoteCard from '../../components/noteCard/NoteCard';
-import EmptyPage from '../../components/emptyPage/EmptyPage';
+import EmptyPage from "../../components/emptyPage/EmptyPage.jsx"
 
 function ImporantNotes() {
   let importantNotes = useSelector(state => state.notes.notes).filter(({ category, noteState }) => (category === 'important' && noteState === 'active'));
