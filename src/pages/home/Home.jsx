@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-
 import AddNote from '../../components/addNote/AddNote.jsx';
 import NoteCard from '../../components/noteCard/NoteCard.jsx';
 import GroupButton from '../../components/groupButton/GroupButton.jsx';

@@ -4,10 +4,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import GroupButton from '../../components/groupButton/GroupButton';
 import WarningBox from '../../components/warningBox/WarningBox';
 import { clearBin } from '../../redux/slices/notesSlice.js';
+
 function Bin() {
   const trashedNotes = useSelector(state => state.notes.notes).filter(({ noteState }) => noteState === 'in-bin');
   const dispatch = useDispatch();
-  
+
   const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
   const handleWarningModal = () => {
     setIsWarningModalOpen(!isWarningModalOpen);
@@ -17,6 +18,7 @@ function Bin() {
     dispatch(clearBin());
     setIsWarningModalOpen(!isWarningModalOpen);
   }
+
   return (
     <main className='w-[75%] p-5 flex flex-col gap-5'>
       {

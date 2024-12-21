@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux';
 import NoteCard from '../../components/noteCard/NoteCard';
 
 function ImporantNotes() {
-  let importantNotes = useSelector(state => state.notes.notes).filter(({ category }) => category === 'important');
+  let importantNotes = useSelector(state => state.notes.notes).filter(({ category, noteState }) => (category === 'important' && noteState === 'active'));
 
-  importantNotes = importantNotes.concat(useSelector(state => state.notes.pinnedNotes).filter(({ category }) => category === 'important')).reverse();
+  importantNotes = importantNotes.concat(useSelector(state => state.notes.pinnedNotes).filter(({ category, noteState }) => (category === 'important' && noteState === 'active'))).reverse();
 
   return (
     <main className='w-[75%] p-5 flex flex-col gap-5'>

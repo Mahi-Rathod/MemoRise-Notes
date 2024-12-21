@@ -1,11 +1,9 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import NoteCard from '../../components/noteCard/NoteCard.jsx';
-
 
 const ArchivedNotes = () => {
   const archivedNotes = useSelector(state => state.notes.notes).filter(({ noteState }) => noteState === 'in-archive');
-
 
   return (
     <main className='w-[75%] p-5 flex flex-col gap-5'>
