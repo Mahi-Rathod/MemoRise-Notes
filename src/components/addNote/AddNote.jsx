@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { v4 as uuid } from 'uuid';
 import { useDispatch } from 'react-redux';
@@ -6,39 +6,44 @@ import { addNote } from '../../redux/slices/notesSlice.js';
 
 function AddNote({ isAddNoteVisible, handleAddNoteVisibility }) {
     const dispatch = useDispatch();
-    const { register, handleSubmit, formState: { errors }, reset} = useForm({
+    const { register, handleSubmit, formState: { errors }, reset } = useForm({
         defaultValues: {
             reminder: null,
-            important: false
-        }
+            important: false,
+        },
     });
 
     const onSubmit = (data) => {
         data.id = uuid();
         data.category = data.important ? 'important' : 'general';
-        data.noteState= 'active';
-        
+        data.noteState = 'active';
+
         delete data.important;
         const now = new Date();
         data.dateTime = now.toLocaleString();
 
-
         dispatch(addNote(data));
         reset();
-        handleAddNoteVisibility()
+        handleAddNoteVisibility();
     };
 
     return (
-        <div className={`${isAddNoteVisible ? 'block' : 'hidden'} w-[70%] mx-auto bg-white p-6 rounded-lg shadow-md max`}>
+        <div
+            className={`${
+                isAddNoteVisible ? 'block' : 'hidden'
+            } w-full sm:w-[90%] md:w-[70%] mx-auto bg-white p-6 rounded-lg shadow-md max-w-xl`}
+        >
             <h2 className="text-xl font-semibold text-gray-800 mb-4 text-center">Add Note</h2>
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
                 {/* First Row: Title and Reminder */}
                 <div className="grid grid-cols-1 gap-4">
                     {/* Title Input */}
                     <div>
-                        {/* Input Box */}
-                        <label htmlFor="title" className="block text-sm font-medium text-gray-700">
-                            Title <strong className='text-red-500'>*</strong>
+                        <label
+                            htmlFor="title"
+                            className="block text-sm font-medium text-gray-700"
+                        >
+                            Title <strong className="text-red-500">*</strong>
                         </label>
                         <input
                             type="text"
@@ -68,9 +73,11 @@ function AddNote({ isAddNoteVisible, handleAddNoteVisibility }) {
 
                 {/* Second Row: Description */}
                 <div>
-                    {/* Textarea */}
-                    <label htmlFor="description" className="block text-sm font-medium text-gray-700">
-                        Description <strong className='text-red-500'>*</strong>
+                    <label
+                        htmlFor="description"
+                        className="block text-sm font-medium text-gray-700"
+                    >
+                        Description <strong className="text-red-500">*</strong>
                     </label>
                     <textarea
                         id="description"
@@ -84,34 +91,39 @@ function AddNote({ isAddNoteVisible, handleAddNoteVisibility }) {
                     )}
                 </div>
 
-                <div className='flex gap-3'>
-                    <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+                <div className="flex gap-3">
+                    <label
+                        htmlFor="important"
+                        className="block text-sm font-medium text-gray-700"
+                    >
                         Important
                     </label>
                     <input
                         type="checkbox"
-                        {...register("important")}
+                        {...register('important')}
+                        className="h-4 w-4 text-cyan-600 border-gray-300 rounded focus:ring-2 focus:ring-cyan-500"
                     />
                 </div>
 
                 {/* Add Note Button */}
-                <div className="flex justify-end gap-3">
+                <div className="flex justify-between gap-4 mt-4">
                     <button
                         type="submit"
-                        className="py-2 px-4 bg-cyan-500 text-white font-medium text-sm rounded-md shadow-sm hover:bg-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50"
+                        className="w-full py-2 px-4 bg-cyan-500 text-white font-medium text-sm rounded-md shadow-sm hover:bg-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50"
                     >
                         Add Note
                     </button>
                     <button
                         type="button"
-                        className="py-2 px-4 bg-red-500 text-white font-medium text-sm rounded-md shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
-                        onClick={handleAddNoteVisibility}>
+                        className="w-full py-2 px-4 bg-red-500 text-white font-medium text-sm rounded-md shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+                        onClick={handleAddNoteVisibility}
+                    >
                         Cancel
                     </button>
                 </div>
             </form>
         </div>
-    )
+    );
 }
 
 export default AddNote;
