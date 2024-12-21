@@ -1,7 +1,9 @@
-
+import { useState } from 'react';
 import GroupButton from '../groupButton/GroupButton.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { archiveNote, unArchiveNote, addToBin, restoreFromBin, deleteNote, pinNote, unPinNote } from '../../redux/slices/notesSlice.js';
+import WarningBox from '../warningBox/WarningBox.jsx';
+import { toast } from 'react-toastify';
 
 function NoteCard({
     id,
@@ -12,7 +14,12 @@ function NoteCard({
     noteState = 'active',
 }) {
 
+    const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
+
     const dispatch = useDispatch();
+
+    const pinnedNotes = useSelector(state => state.notes.pinnedNotes);
+    const isPinned = pinnedNotes.some(note => note.id === id);
 
     const truncateDescription = (text, maxWords) => {
         const words = text.split(" ");
@@ -22,40 +29,49 @@ function NoteCard({
         return text;
     };
 
-    const pinnedNotes = useSelector(state=>state.notes.pinnedNotes);
-
-    const isPinned = pinnedNotes.some(note=> note.id === id);
+    const handleWarningModal = () => {
+        setIsWarningModalOpen(!isWarningModalOpen);
+    }
 
     const handlePinNote = () => {
-        if(!isPinned){
-            dispatch(pinNote({id}));
+        if (!isPinned) {
+            dispatch(pinNote({ id }));
         }
-        else{
-            dispatch(unPinNote({id}));
+        else {
+            dispatch(unPinNote({ id }));
         }
     }
 
     const handleBin = () => {
-        if(isPinned) handlePinNote();
-        if(noteState === 'active' || noteState === 'in-archive')
+        if (isPinned) handlePinNote();
+        if (noteState === 'active' || noteState === 'in-archive'){
+            toast.success('Note is added in bin!');
             dispatch(addToBin({ id, isPinned }));
-        else
+        }
+        else{
+            toast.success('Note is restored from bin!');
             dispatch(restoreFromBin({ id, isPinned }));
+        }        
     }
 
     const handleArchive = () => {
-        if(isPinned) handlePinNote();
+        if (isPinned) handlePinNote();
         if (noteState === 'in-archive') {
+            toast.success('Your Note is Un-Archived');
             dispatch(unArchiveNote({ id, isPinned }));
         }
         else {
+            toast.success('Your Note is Archived');
             dispatch(archiveNote({ id, isPinned }));
         }
+
     }
 
-    const handleDelete = () =>{
+    const handleDelete = () => {
+        toast.success('Note Deleted Permanently!');
         dispatch(deleteNote({ id }));
     }
+
 
     return (
         <div className={`${category === 'important' ? 'bg-[#fff3cd]' : 'bg-white'} shadow-md border-2 border-gray-500 rounded-md p-4 w-full max-w-md hover:shadow-gray-500`}>
@@ -132,7 +148,7 @@ function NoteCard({
                         noteState === 'in-bin' && (
                             <GroupButton
                                 isVisible={false}
-                                handleOnClick={handleDelete}
+                                handleOnClick={handleWarningModal}
                                 buttonIcon='delete'
                                 buttonTooltipText='Delete Permanently'
                                 height='h-[2rem]'
@@ -144,6 +160,15 @@ function NoteCard({
 
                 </div>
             </div>
+
+            {
+                isWarningModalOpen && <WarningBox
+                    handleOk={handleDelete}
+                    handleCancel={handleWarningModal}
+                    mainText="Delete"
+                    warningMessage='This will permanently delete note?'
+                />
+            }
         </div>
     )
 }

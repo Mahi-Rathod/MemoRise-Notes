@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 function Navbar() {
   return (
-    <header className='h-[3.5rem] flex p-6 items-center gap-3 mt-1 border-b-cyan-600 border-b-2 shadow-md'>
+    <header className="h-[3.5rem] flex p-6 items-center gap-3 border-b-cyan-600 border-b-2 shadow-md fixed top-0 left-0 right-0 z-[1000] bg-white">
       <div className='h-[3rem]'>
         <Link to="/">
           <img src={logo} alt="" className='h-full rounded-full border-2 cursor-pointer' />

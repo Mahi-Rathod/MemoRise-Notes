@@ -6,8 +6,9 @@ import WarningBox from '../../components/warningBox/WarningBox';
 import { clearBin } from '../../redux/slices/notesSlice.js';
 function Bin() {
   const trashedNotes = useSelector(state => state.notes.notes).filter(({ noteState }) => noteState === 'in-bin');
-  const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
   const dispatch = useDispatch();
+  
+  const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
   const handleWarningModal = () => {
     setIsWarningModalOpen(!isWarningModalOpen);
   }

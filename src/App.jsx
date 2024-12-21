@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import Home from "./pages/Home/Home.jsx";
+import Home from "./pages/home/Home.jsx";
 import ArchivedNotes from "./pages/archivedNotes/ArchivedNotes.jsx";
 import ImportantNotes from "./pages/importantNotes/ImporantNotes.jsx";
 import Bin from "./pages/bin/Bin.jsx"

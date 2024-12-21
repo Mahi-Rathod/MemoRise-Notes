@@ -8,7 +8,7 @@ function Layout() {
   return (
     <>
         <Navbar />
-        <div className='flex justify-between w-full'>
+        <div className='flex justify-between w-full mt-14 '>
             <Sidebar />
             <Outlet />
         </div>

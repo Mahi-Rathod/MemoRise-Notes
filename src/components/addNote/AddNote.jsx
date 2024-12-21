@@ -6,7 +6,7 @@ import { addNote } from '../../redux/slices/notesSlice.js';
 
 function AddNote({ isAddNoteVisible, handleAddNoteVisibility }) {
     const dispatch = useDispatch();
-    const { register, handleSubmit, formState: { errors }, } = useForm({
+    const { register, handleSubmit, formState: { errors }, reset} = useForm({
         defaultValues: {
             reminder: null,
             important: false
@@ -24,6 +24,8 @@ function AddNote({ isAddNoteVisible, handleAddNoteVisibility }) {
 
 
         dispatch(addNote(data));
+        reset();
+        handleAddNoteVisibility()
     };
 
     return (
@@ -31,7 +33,7 @@ function AddNote({ isAddNoteVisible, handleAddNoteVisibility }) {
             <h2 className="text-xl font-semibold text-gray-800 mb-4 text-center">Add Note</h2>
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
                 {/* First Row: Title and Reminder */}
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 gap-4">
                     {/* Title Input */}
                     <div>
                         {/* Input Box */}
@@ -51,7 +53,7 @@ function AddNote({ isAddNoteVisible, handleAddNoteVisibility }) {
                     </div>
 
                     {/* Reminder Input */}
-                    <div>
+                    {/* <div>
                         <label htmlFor="reminder" className="block text-sm font-medium text-gray-700">
                             Reminder Time
                         </label>
@@ -61,7 +63,7 @@ function AddNote({ isAddNoteVisible, handleAddNoteVisibility }) {
                             {...register('reminder')}
                             className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 p-2"
                         />
-                    </div>
+                    </div> */}
                 </div>
 
                 {/* Second Row: Description */}
@@ -112,4 +114,4 @@ function AddNote({ isAddNoteVisible, handleAddNoteVisibility }) {
     )
 }
 
-export default AddNote
+export default AddNote;
