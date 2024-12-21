@@ -84,6 +84,11 @@ function Home() {
                         />
                     ))}
             </div>
+            {
+                notes?.length === 0 && (
+                    <h1 className="text-3xl font-bold w-1/4"> You Dont have any notes! <hr className='mt-2'/> Start adding notes</h1>
+                )
+            }
         </main>
     )
 }
