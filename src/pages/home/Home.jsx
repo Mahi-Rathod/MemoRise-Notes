@@ -7,15 +7,12 @@ import { useSelector } from 'react-redux';
 
 function Home() {
     const [isAddNoteVisible, setIsAddNoteVisible] = useState(false);
-    const notes = useSelector((state) => state.notes.notes);
+    const notes = useSelector((state) => state.notes.notes).filter(({ noteState })=> noteState === 'active');
     const pinnedNotes = useSelector((state) => state.notes.pinnedNotes);
 
     const handleAddNoteVisibility = () => {
         setIsAddNoteVisible(!isAddNoteVisible);
     }
-
-    console.log("notes", notes);
-    console.log("pinned Notes", pinnedNotes)
 
     return (
         <main className='w-[75%] p-5 flex flex-col gap-5'>
